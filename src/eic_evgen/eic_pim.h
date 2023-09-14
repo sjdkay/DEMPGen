@@ -201,41 +201,6 @@ extern double fHBeam_MomY_Col_GeV;
 extern double fHBeam_MomZ_Col_GeV;
 extern double fHBeam_Mass;
 
-extern double fFSIProton_Energy_Col;
-extern double fFSIProton_Mom_Col;
-extern double fFSIProton_Theta_Col;
-extern double fFSIProton_Phi_Col;
-extern double fFSIProton_MomZ_Col;
-extern double fFSIProton_MomX_Col;
-extern double fFSIProton_MomY_Col;
-extern double fFSIProton_Energy_Col_GeV;
-extern double fFSIProton_Mom_Col_GeV;
-extern double fFSIProton_MomX_Col_GeV;
-extern double fFSIProton_MomY_Col_GeV;
-extern double fFSIProton_MomZ_Col_GeV;
-
-extern double fTarget_Energy_Col;
-extern double fTarget_Mom_Col;
-extern double fTarget_Theta_Col;
-extern double fTarget_Phi_Col;
-extern double fTarget_MomZ_Col;
-extern double fTarget_MomX_Col;
-extern double fTarget_MomY_Col;
-extern double fTarget_Energy_Col_GeV;
-extern double fTarget_Mom_Col_GeV;
-extern double fTarget_MomX_Col_GeV;
-extern double fTarget_MomY_Col_GeV;
-extern double fTarget_MomZ_Col_GeV;
-
-extern double fTarget_Pol0_Col;
-extern double fTarget_PolX_Col;
-extern double fTarget_PolY_Col;
-extern double fTarget_PolZ_Col;
-extern double fTarget_Pol0_RF;
-extern double fTarget_PolX_RF;
-extern double fTarget_PolY_RF;
-extern double fTarget_PolZ_RF;
-
 extern double fBetaX_Col_RF;
 extern double fBetaY_Col_RF;
 extern double fBetaZ_Col_RF;
