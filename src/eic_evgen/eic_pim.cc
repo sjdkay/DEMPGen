@@ -27,7 +27,7 @@ bool gPi0_decay;
 bool UseSolve;
 string gDet_location;
 string gOutputType; // SJDK 12/01/22 - Added output type as a variable you can specify in the .json file
-string gHBeamPart; // SJDK 12/01/22 - Added output type as a variable you can specify in the .json file
+string gHBeamPart;
 float fProton_incidence_phi;
 float fHBeam_incidence_phi;
 
@@ -44,13 +44,13 @@ unsigned long long int fNEvents, fNRecorded, fNGenerated, fWSqNeg, fNSigmaNeg, f
 
 // SJDK 03/04/23 - Added in Qsq Min/Max, W Min/Max and t max (06/09/23)
 // 13/09/23 - SJDK - New generic HBeam value (rather than proton beam)
-double fK, fm, fElectron_Kin_Col_GeV, fElectron_Kin_Col, fRand, fLumi, fuBcm2, fPI, fDEG2RAD, fRAD2DEG, fEBeam, fPBeam, fHBeam, fScatElec_Theta_I, fScatElec_Theta_F, fPion_Theta_I, fPion_Theta_F, fEjectileX_Theta_I, fEjectileX_Theta_F, fScatElec_E_Hi, fScatElec_E_Lo, fPSF, fQsq_Min, fQsq_Max, fW_Min, fW_Max, fT_Max; 
+double fK, fm, fElectron_Kin_Col_GeV, fElectron_Kin_Col, fRand, fLumi, fuBcm2, fPI, fDEG2RAD, fRAD2DEG, fEBeam, fPBeam, fHBeam, fScatElec_Theta_I, fScatElec_Theta_F, fEjectileX_Theta_I, fEjectileX_Theta_F, fScatElec_E_Hi, fScatElec_E_Lo, fPSF, fQsq_Min, fQsq_Max, fW_Min, fW_Max, fT_Max; 
 
 double fOmega_Theta_I, fOmega_Theta_F, fOmega_Theta_Col, fOmega_Phi_Col;
 
 double fDiff_E, conserve, ene, mom, ene_mom, mom_px, mom_py, mom_pz, mom_pxpy, mom_pxpz, mom_pypz, mom_pxpypz; // 18/06/21 AU -> New variables to count envents passing/not passing conservation laws
 
-double fMandSConserve, fTop_Pion_Mom, fBot_Pion_Mom, fPion_Mom_Same, fEnergyConserve, fXMomConserve, fYMomConserve, fZMomConserve, fXMomConserve_RF, fYMomConserve_RF, fZMomConserve_RF, fEnergyConserve_RF; 
+double fEnergyConserve, fXMomConserve, fYMomConserve, fZMomConserve, fXMomConserve_RF, fYMomConserve_RF, fZMomConserve_RF, fEnergyConserve_RF; 
 
 double fDiff, fRatio, fPion_Alpha, fPion_Beta, fS_I_RF, fS_F_RF, fS_I_Col, fS_F_Col, fS_I_RF_GeV, fS_F_RF_GeV, fS_I_Col_GeV, fS_F_Col_GeV; 
 
@@ -58,12 +58,6 @@ double fProton_Energy_Col, fProton_Mom_Col, fProton_Theta_Col, fProton_Phi_Col, 
 
 // 13/09/23 - SJDK - New generic Hadron beam values (rather than proton)
 double fHBeam_Energy_Col, fHBeam_Mom_Col, fHBeam_Theta_Col, fHBeam_Phi_Col, fHBeam_MomZ_Col, fHBeam_MomX_Col, fHBeam_MomY_Col, fHBeam_Energy_Col_GeV, fHBeam_Mom_Col_GeV, fHBeam_MomX_Col_GeV, fHBeam_MomY_Col_GeV, fHBeam_MomZ_Col_GeV; 
-
-double fFSIProton_Energy_Col, fFSIProton_Mom_Col, fFSIProton_Theta_Col, fFSIProton_Phi_Col, fFSIProton_MomZ_Col, fFSIProton_MomX_Col, fFSIProton_MomY_Col, fFSIProton_Energy_Col_GeV, fFSIProton_Mom_Col_GeV, fFSIProton_MomX_Col_GeV, fFSIProton_MomY_Col_GeV, fFSIProton_MomZ_Col_GeV;
-
-double fTarget_Energy_Col, fTarget_Mom_Col, fTarget_Theta_Col, fTarget_Phi_Col, fTarget_MomZ_Col, fTarget_MomX_Col, fTarget_MomY_Col, fTarget_Energy_Col_GeV, fTarget_Mom_Col_GeV, fTarget_MomX_Col_GeV, fTarget_MomY_Col_GeV, fTarget_MomZ_Col_GeV;
-
-double fTarget_Pol0_Col, fTarget_PolX_Col, fTarget_PolY_Col, fTarget_PolZ_Col, fTarget_Pol0_RF, fTarget_PolX_RF, fTarget_PolY_RF, fTarget_PolZ_RF;
 
 double fBetaX_Col_RF, fBetaY_Col_RF, fBetaZ_Col_RF, fBeta_Col_RF, fGamma_Col_RF;
 
@@ -263,9 +257,6 @@ void pim::Initilize() {
     // SJDK 21/12/22 - Set by .json read in
     //fScatElec_E_Lo                              = 0.5;  // NOT a percentage of beam energy
     //fScatElec_E_Hi                              = 2.5;  // NOT a percentage of beam energy
-    // Should remove specific pion/omega values here and JUST use EjectileX, should then actually read this in as a parameter, use 0 to 50 as default
-    fPion_Theta_I                               = 0.0 * fDEG2RAD;
-    fPion_Theta_F                               = 50.0 * fDEG2RAD;
     // SJDK 21/12/22 - Set by .json read in
     //fEjectileX_Theta_I                          = 0.0 * fDEG2RAD;
     //fEjectileX_Theta_F                          = 50.0 * fDEG2RAD;
@@ -304,7 +295,6 @@ void pim::Initilize() {
     fMom_Ratio                                  = 0.460029;
     fMom_Dif                                    = 0.01;
     fPi                                         = TMath::Pi(); 
-    fMandSConserve                              = 0;
     fEnergyConserve                             = 0;
     fXMomConserve                               = 0;
     fYMomConserve                               = 0;
@@ -313,9 +303,6 @@ void pim::Initilize() {
     fYMomConserve_RF                            = 0;
     fZMomConserve_RF                            = 0;
     fEnergyConserve_RF                          = 0;
-    fPion_Mom_Same                              = 0;
-    fTop_Pion_Mom                               = 0;
-    fBot_Pion_Mom                               = 0;
     fS_I_RF                                     = 0;
     fS_F_RF                                     = 0;
     fS_I_Col                                    = 0;
@@ -375,26 +362,6 @@ void pim::Initilize() {
     fHBeam_MomY_Col_GeV                         = 0;
     fHBeam_MomZ_Col_GeV                         = 0;
     fHBeam_Mass                                 = 0;
-    fTarget_Energy_Col                          = 0;
-    fTarget_Mom_Col                             = 0;
-    fTarget_Theta_Col                           = 0;
-    fTarget_Phi_Col                             = 0;
-    fTarget_MomZ_Col                            = 0;
-    fTarget_MomX_Col                            = 0;
-    fTarget_MomY_Col                            = 0;
-    fTarget_Energy_Col_GeV                      = 0;
-    fTarget_Mom_Col_GeV                         = 0;
-    fTarget_MomX_Col_GeV                        = 0;
-    fTarget_MomY_Col_GeV                        = 0;
-    fTarget_MomZ_Col_GeV                        = 0;
-    fTarget_Pol0_Col                            = 0;
-    fTarget_PolX_Col                            = 0;
-    fTarget_PolY_Col                            = 0;
-    fTarget_PolZ_Col                            = 0;
-    fTarget_Pol0_RF                             = 0;
-    fTarget_PolX_RF                             = 0;
-    fTarget_PolY_RF                             = 0;
-    fTarget_PolZ_RF                             = 0;
     fBetaX_Col_RF                               = 0;
     fBetaY_Col_RF                               = 0;
     fBetaZ_Col_RF                               = 0;
