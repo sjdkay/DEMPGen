@@ -29,6 +29,7 @@ string gDet_location;
 string gOutputType; // SJDK 12/01/22 - Added output type as a variable you can specify in the .json file
 string gBeamPart; // SJDK 12/01/22 - Added output type as a variable you can specify in the .json file
 float fProton_incidence_phi;
+float fHBeam_incidence_phi;
 
 TString gfile_name;
 
@@ -55,6 +56,9 @@ double fDiff, fRatio, fPion_Alpha, fPion_Beta, fS_I_RF, fS_F_RF, fS_I_Col, fS_F_
 
 double fProton_Energy_Col, fProton_Mom_Col, fProton_Theta_Col, fProton_Phi_Col, fProton_MomZ_Col, fProton_MomX_Col, fProton_MomY_Col, fProton_Energy_Col_GeV, fProton_Mom_Col_GeV, fProton_MomX_Col_GeV, fProton_MomY_Col_GeV, fProton_MomZ_Col_GeV; 
 
+// 13/09/23 - SJDK - New generic Hadron beam values (rather than proton)
+double fHBeam_Energy_Col, fHBeam_Mom_Col, fHBeam_Theta_Col, fHBeam_Phi_Col, fHBeam_MomZ_Col, fHBeam_MomX_Col, fHBeam_MomY_Col, fHBeam_Energy_Col_GeV, fHBeam_Mom_Col_GeV, fHBeam_MomX_Col_GeV, fHBeam_MomY_Col_GeV, fHBeam_MomZ_Col_GeV; 
+
 double fFSIProton_Energy_Col, fFSIProton_Mom_Col, fFSIProton_Theta_Col, fFSIProton_Phi_Col, fFSIProton_MomZ_Col, fFSIProton_MomX_Col, fFSIProton_MomY_Col, fFSIProton_Energy_Col_GeV, fFSIProton_Mom_Col_GeV, fFSIProton_MomX_Col_GeV, fFSIProton_MomY_Col_GeV, fFSIProton_MomZ_Col_GeV;
 
 double fTarget_Energy_Col, fTarget_Mom_Col, fTarget_Theta_Col, fTarget_Phi_Col, fTarget_MomZ_Col, fTarget_MomX_Col, fTarget_MomY_Col, fTarget_Energy_Col_GeV, fTarget_Mom_Col_GeV, fTarget_MomX_Col_GeV, fTarget_MomY_Col_GeV, fTarget_MomZ_Col_GeV;
@@ -70,6 +74,9 @@ double fScatElec_Angle, fScatElec_Alpha_RF, fScatElec_Beta_RF;
 double fVertex_X, fVertex_Y, fVertex_Z, fProton_Kin_Col_GeV, fElectron_Mass, fElectron_Mass_GeV, fProton_Mass, fProton_Mass_GeV, fNeutron_Mass, fNeutron_Mass_GeV, fPion_Mass, fPion_Mass_GeV, fPiion_Phi, fAlpha, fPi, fMom_Ratio, fMom_Dif, fPionEnergyCMLess, fSNotEqual, fMode_Epsi, fRecoilProton_Mass, fRecoilProton_Mass_GeV;
 
 double fOmega_Mass, fOmega_Mass_GeV; 
+
+// 13/09/23 - SJDK - New generic Hadron beam values (rather than proton)
+double fHBeam_Mass, fHBeam_Mass_GeV;
 
 double f_Scat_hadron_Mass, f_Scat_hadron_Mass_GeV;
 
@@ -354,6 +361,20 @@ void pim::Initilize() {
     fProton_MomX_Col_GeV                        = 0;
     fProton_MomY_Col_GeV                        = 0;
     fProton_MomZ_Col_GeV                        = 0;
+    // 13/09/23 - SJDK - New generic Hadron beam values (rather than proton)
+    fHBeam_Energy_Col                           = 0;
+    fHBeam_Mom_Col                              = 0;
+    fHBeam_Theta_Col                            = 0;
+    fHBeam_Phi_Col                              = 0;
+    fHBeam_MomZ_Col                             = 0;
+    fHBeam_MomX_Col                             = 0;
+    fHBeam_MomY_Col                             = 0;
+    fHBeam_Energy_Col_GeV                       = 0;
+    fHBeam_Mom_Col_GeV                          = 0;
+    fHBeam_MomX_Col_GeV                         = 0;
+    fHBeam_MomY_Col_GeV                         = 0;
+    fHBeam_MomZ_Col_GeV                         = 0;
+    fHBeam_Mass                                 = 0;
     fTarget_Energy_Col                          = 0;
     fTarget_Mom_Col                             = 0;
     fTarget_Theta_Col                           = 0;

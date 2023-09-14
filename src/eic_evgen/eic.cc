@@ -117,12 +117,6 @@ void eic(Json::Value obj) {
    	
   TString targetname;  
   TString charge;
-
-  int target_direction = obj["Targ_dir"].asInt();
-  gKinematics_type     = obj["Kinematics_type"].asInt();
-
-  if( target_direction == 1 ) targetname = "up";
-  if( target_direction == 2 ) targetname = "down";
  
   gfile_name = obj["file_name"].asString();
  
@@ -222,7 +216,10 @@ void eic(Json::Value obj) {
   else {
     gBeamPart = "Proton";
   }
-
+  
+  // 13/09/23 - SJDK - Set the hadron beam mass based upon the beam particle - this should be reported elsewhere
+  fHBeam_Mass = ParticleMass(ParticleEnum(gBeamPart.c_str()))*1000;
+  
   // SJDK - 12/01/22
   // Set output type as a .json read in
   // Should be Pythia6, LUND or HEPMC3
@@ -255,18 +252,22 @@ void eic(Json::Value obj) {
     gDet_location = obj["det_location"].asString();
     if (gDet_location == "ip8") {
       fProton_incidence_phi = 0.0;
+      fHBeam_incidence_phi = 0.0;
     } 
     else if (gDet_location == "ip6") {
       fProton_incidence_phi = fPi;
+      fHBeam_incidence_phi = fPi;
     }
     else {
       fProton_incidence_phi = 0.0;
+      fHBeam_incidence_phi = 0.0;
       cout << "The interaction point requested is not recognized!" << endl;
       cout << "Therefore ip6 is used by default." << endl;
     }
   }
   else{ // 21/12/22 - This could probably be combined with the else statement above in some way
     fProton_incidence_phi = 0.0;
+    fHBeam_incidence_phi = 0.0;
     cout << "The interaction points was not specified in the .json file!" << endl;
     cout << "Therefore ip6 is used by default" << endl;
   }
@@ -382,7 +383,7 @@ TString ExtractParticle(TString particle) {
   }
 
   particle[0] = toupper(particle[0]);
-  cout << "Particle: " << particle << endl;
+  //cout << "Particle: " << particle << endl;
   return particle;
 
 }

@@ -55,6 +55,7 @@ extern std::string gDet_location;
 extern std::string gOutputType;
 extern std::string gBeamPart;
 extern float fProton_incidence_phi;
+extern float fHBeam_incidence_phi;
 
 extern int fSeed;
 
@@ -190,6 +191,21 @@ extern double fProton_Mom_Col_GeV;
 extern double fProton_MomX_Col_GeV;
 extern double fProton_MomY_Col_GeV;
 extern double fProton_MomZ_Col_GeV;
+
+// 13/09/23 - SJDK - New generic HBeam value (rather than proton beam)
+extern double fHBeam_Energy_Col;
+extern double fHBeam_Mom_Col;
+extern double fHBeam_Theta_Col;
+extern double fHBeam_Phi_Col;
+extern double fHBeam_MomZ_Col;
+extern double fHBeam_MomX_Col;
+extern double fHBeam_MomY_Col;
+extern double fHBeam_Energy_Col_GeV;
+extern double fHBeam_Mom_Col_GeV;
+extern double fHBeam_MomX_Col_GeV;
+extern double fHBeam_MomY_Col_GeV;
+extern double fHBeam_MomZ_Col_GeV;
+extern double fHBeam_Mass;
 
 extern double fFSIProton_Energy_Col;
 extern double fFSIProton_Mom_Col;

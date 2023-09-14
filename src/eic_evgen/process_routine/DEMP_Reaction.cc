@@ -74,11 +74,11 @@ void DEMP_Reaction::Init() {
   struct stat sb;
 
   if (stat(dir_name, &sb) == 0) {
-     cout << "The path is valid!";
+    cout << "The output path - " << dir_name << " - is valid!" <<endl;
   }
   else {
-     cout << "The Path is invalid!";
-     mkdir(dir_name,0777);
+    cout << "The output path - " << dir_name << " - is invalid!" << endl << "Making directory!" << endl;
+    mkdir(dir_name,0777);
   } 
 
   sTFile = Form("./%s/eic_%s.txt", dir_name, gfile_name.Data());
@@ -112,20 +112,12 @@ void DEMP_Reaction::Init() {
   //rFermiMomentum = pd->fermiMomentum();
 
   // ----------------------------------------------------
-  // Proton in collider (lab) frame
-  // 08/09/23 - SJDK - The naming needs to be adjusted to be the incoming hadron beam, not the proton. Make this generic.
-  r_lproton = GetProtonVector_lab();
-  r_lprotong = GetProtonVector_lab() * fm;
-
-  // Getting the mass of the hadron beam
-  r_lhadron_beam_mass = ParticleMass(ParticleEnum(gBeamPart.c_str()))*1000; // in MeV
-
-//  cout << gBeamPart << endl;
-//  cout << ParticleEnum(gBeamPart.c_str()) << endl; 
-//  cout << ParticleMass(ParticleEnum(gBeamPart.c_str())) << endl; 
-//  cout << r_lhadron_beam_mass << endl;
-//  exit(0);
-
+  // Hadron beam particle in collider (lab) frame
+  // 13/09/23 - SJDK - Swapped from "proton" to the more generic HBeam, note gBeamPart is the particle name string
+  // Need to think carefully about how different beams will actually be implemented. Most of the other "beam" is just spectator junk. 
+  r_lHBeam = GetHBeamVector_lab();
+  r_lHBeamg = GetHBeamVector_lab() * fm;
+  
   // ----------------------------------------------------
   // Electron in collider (lab) frame
 
@@ -142,8 +134,8 @@ void DEMP_Reaction::Init() {
   f_Ejectile_Mass = ParticleMass(produced_X)*1000; //MeV
   f_Ejectile_Mass_GeV = f_Ejectile_Mass/1000; //GeV
 
-  cout << rEjectile << "  " << produced_X << "  " << f_Ejectile_Mass_GeV <<  endl;
-  cout << rEjectile_charge << endl;
+  // cout << rEjectile << "  " << produced_X << "  " << f_Ejectile_Mass_GeV <<  endl;
+  // cout << rEjectile_charge << endl;
 
   if (rRecoil == "Neutron" ) {
     rEjectile_scat_hadron  = "Neutron"; 
@@ -177,13 +169,18 @@ void DEMP_Reaction::Init() {
   f_Ejectile_Theta_I = fEjectileX_Theta_I ;
   f_Ejectile_Theta_F = fEjectileX_Theta_F;
 
-  cout << "Produced particle in exclusive production: " << rEjectile << ";  with mass: " << f_Ejectile_Mass << " MeV "<< endl;
-  cout << fEBeam << " GeV electrons on " << fHBeam << " GeV ions" << endl;
+  cout << "Produced ejectile in exclusive production: " << rEjectile << ";  with mass: " << f_Ejectile_Mass << " MeV "<< endl;
+  if (gBeamPart == "Proton"){
+    cout << fEBeam << " GeV electrons on " << fHBeam << " GeV protons" << endl;
+  }
+  else{
+    cout << fEBeam << " GeV electrons on " << fHBeam << " GeV " << gBeamPart << " ions" << endl;
+  }
   if(UseSolve == true){
     cout << rEjectile << " and " << rEjectile_scat_hadron << " 4-vectors calculated using Solve function" << endl;
   }
   else if(UseSolve == false){
-    cout << rEjectile << " and " << rEjectile_scat_hadron << " 4-vectors calculated using analytical solution" << endl;
+    cout << rEjectile << " and " << rEjectile_scat_hadron << " 4-vectors calculated using analytical solution" << endl << endl;
   }
   // Set luminosity value based upon beam energy combination, note that if no case matches, a default of 1e33 is assumed. Cases are a set of nominal planned beam energy combinations for the EIC (and EICC)
   // See slide 11 in https://indico.cern.ch/event/1072579/contributions/4796856/attachments/2456676/4210776/CAP-EIC-June-7-2022-Seryi-r2.pdf
@@ -218,7 +215,7 @@ void DEMP_Reaction::Init() {
 
     F = new TF1("F",
 		"[6]-sqrt([7]**2+x**2)-sqrt([8]**2+([3]-[0]*x)**2+([4]-[1]*x)**2+([5]-[2]*x)**2)",
-		0, r_lproton.E());
+		0, r_lHBeam.E());
 
     char AngleGenName[100] = "AngleGen";
     double dummy[2] = {0,1};
@@ -263,7 +260,7 @@ void DEMP_Reaction::Processing_Event() {
   // Boost vector from collider (lab) frame to protons rest frame (Fix target)
   // ----------------------------------------------------
  
-  beta_col_rf = r_lproton.BoostVector();        
+  beta_col_rf = r_lHBeam.BoostVector();        
   fGamma_Col_RF = 1.0/sqrt( 1 - pow( beta_col_rf.Mag() , 2 ) );
 
   // ---------------------------------------------------------------------
@@ -312,7 +309,7 @@ void DEMP_Reaction::Processing_Event() {
   // ----------------------------------------------------
  
   TLorentzVector lwg;
-  lwg = r_lprotong + r_lphotong;
+  lwg = r_lHBeamg + r_lphotong;
   fW_GeV    = lwg.Mag();
   fWSq_GeV  = lwg.Mag2();
     
@@ -342,19 +339,19 @@ void DEMP_Reaction::Processing_Event() {
  
     double fa = -(r_lphoton.Vect()).Mag() * ( fupx * fuqx +  fupy * fuqy +  fupz * fuqz );
     double fb = pow ( (r_lphoton.Vect()).Mag() , 2 );
-    double fc = r_lphoton.E() + fProton_Mass;
+    double fc = r_lphoton.E() + fProton_Mass; // 14/09/23 - SJDK - Should this one be proton or HBeam mass? Need to carefully check
  
-    fa = ( fa - std::abs( (r_lproton.Vect()).Mag() ) * ( ( ( r_lproton.X() / (r_lproton.Vect()).Mag() ) * fupx ) + 
-							 ( ( r_lproton.Y() / (r_lproton.Vect()).Mag() ) * fupy ) + 
-							 ( ( r_lproton.Z() / (r_lproton.Vect()).Mag() ) * fupz ) ) );
+    fa = ( fa - std::abs( (r_lHBeam.Vect()).Mag() ) * ( ( ( r_lHBeam.X() / (r_lHBeam.Vect()).Mag() ) * fupx ) + 
+							 ( ( r_lHBeam.Y() / (r_lHBeam.Vect()).Mag() ) * fupy ) + 
+							 ( ( r_lHBeam.Z() / (r_lHBeam.Vect()).Mag() ) * fupz ) ) );
      
-    double factor = ( pow( (r_lproton.Vect()).Mag() , 2 ) + 2.0 * (r_lphoton.Vect()).Mag() * (r_lproton.Vect()).Mag() *  
-		      ( ( ( r_lproton.X() / (r_lproton.Vect()).Mag() ) * fuqx ) + 
-			( ( r_lproton.Y() / (r_lproton.Vect()).Mag() ) * fuqy ) + 
-			( ( r_lproton.Z() / (r_lproton.Vect()).Mag() ) * fuqz ) ) );
+    double factor = ( pow( (r_lHBeam.Vect()).Mag() , 2 ) + 2.0 * (r_lphoton.Vect()).Mag() * (r_lHBeam.Vect()).Mag() *  
+		      ( ( ( r_lHBeam.X() / (r_lHBeam.Vect()).Mag() ) * fuqx ) + 
+			( ( r_lHBeam.Y() / (r_lHBeam.Vect()).Mag() ) * fuqy ) + 
+			( ( r_lHBeam.Z() / (r_lHBeam.Vect()).Mag() ) * fuqz ) ) );
      
     fb =  fb + factor;  
-    fc = r_lphoton.E() + r_lproton.E();
+    fc = r_lphoton.E() + r_lHBeam.E();
      
     double ft = fc * fc - fb + f_Ejectile_Mass * f_Ejectile_Mass - f_Recoil_Mass * f_Recoil_Mass;
      
@@ -378,10 +375,10 @@ void DEMP_Reaction::Processing_Event() {
 			     ( sqrt( pow( fepi1 , 2) - pow(f_Ejectile_Mass , 2) ) ) * cos(f_Ejectile_Theta_Col),
 			     fepi1 );
   
-    l_Recoil.SetPxPyPzE( ( r_lproton + r_lelectron - r_lscatelec - r_l_Ejectile).X(),
-			 ( r_lproton + r_lelectron - r_lscatelec - r_l_Ejectile ).Y(),
-			 ( r_lproton + r_lelectron - r_lscatelec - r_l_Ejectile ).Z(),
-			 sqrt( pow( ( ( ( r_lproton + r_lelectron - r_lscatelec - r_l_Ejectile ).Vect() ).Mag()),2) +
+    l_Recoil.SetPxPyPzE( ( r_lHBeam + r_lelectron - r_lscatelec - r_l_Ejectile).X(),
+			 ( r_lHBeam + r_lelectron - r_lscatelec - r_l_Ejectile ).Y(),
+			 ( r_lHBeam + r_lelectron - r_lscatelec - r_l_Ejectile ).Z(),
+			 sqrt( pow( ( ( ( r_lHBeam + r_lelectron - r_lscatelec - r_l_Ejectile ).Vect() ).Mag()),2) +
 			       pow( f_Recoil_Mass , 2) ) );
   }
    else if (UseSolve == true){
@@ -401,7 +398,7 @@ void DEMP_Reaction::Processing_Event() {
   // Calculate w = (proton + photon)^2
   // ----------------------------------------------------------------------------------------------
   
-  r_lw = r_lproton + r_lphoton;
+  r_lw = r_lHBeam + r_lphoton;
   fW = r_lw.Mag();
 
   // SJDK 15/06/21 - Added integer counters for conservation law check and for NaN check
@@ -422,7 +419,7 @@ void DEMP_Reaction::Processing_Event() {
   //           CheckLaws(e_beam, h_beam, scatt_e, ejectile, recoil, tolerance) <- input 4 vectors and tolerance value in GeV
   // Both functions return 1 if conservations laws are satisified
   
-   if( pd->CheckLaws(r_lelectron, r_lproton, r_lscatelec, r_l_Ejectile, l_Recoil) !=1 ){
+   if( pd->CheckLaws(r_lelectron, r_lHBeam, r_lscatelec, r_l_Ejectile, l_Recoil) !=1 ){
      fConserve++;
      return;
    }	
@@ -432,7 +429,7 @@ void DEMP_Reaction::Processing_Event() {
   // Transformation of e', pi- and recoil proton to target's rest frame without energy loss //
   ////////////////////////////////////////////////////////////////////////////////////////////
  
-  lproton_rf = r_lproton;
+  lproton_rf = r_lHBeam;
   lproton_rf.Boost(-beta_col_rf);
   lproton_rfg = lproton_rf * fm;
  
@@ -466,9 +463,9 @@ void DEMP_Reaction::Processing_Event() {
   // -----------------------------------------------------------------------------------------
   // 18/05/23 - SJDK - Should these be proton mass still or not?
 
-  fBeta_CM_RF        = (lphoton_rf.Vect()).Mag() / (lphoton_rf.E() + r_lhadron_beam_mass);
+  fBeta_CM_RF        = (lphoton_rf.Vect()).Mag() / (lphoton_rf.E() + fHBeam_Mass);
 
-  fGamma_CM_RF       = (lphoton_rf.E() + r_lhadron_beam_mass) / fW;
+  fGamma_CM_RF       = (lphoton_rf.E() + fHBeam_Mass) / fW;
   f_Ejectile_Energy_CM       = (pow(fW, 2) + pow(f_Ejectile_Mass,2) - pow(f_Recoil_Mass,2) ) / (2.0* fW);    
   f_Ejectile_Mom_CM          = sqrt(pow(f_Ejectile_Energy_CM,2) - pow(f_Ejectile_Mass,2));    
   f_Ejectile_Energy_CM_GeV   = f_Ejectile_Energy_CM / 1000.0;
@@ -483,19 +480,6 @@ void DEMP_Reaction::Processing_Event() {
  
   fT = -1.*lt.Mag2();
   fT_GeV = -1.*ltg.Mag2();
-  
-  // 31/01/23 - SJDK - Kinematics type 1 is FF and 2 is TSSA, this reaction class shouldn't care about this and only have a limit depending upon particle type?
-  /*
-  if ( gKinematics_type == 1 && fT_GeV > 0.5 ) {
-    t_ev++;
-    return;
-  }
-     
-  if ( gKinematics_type == 2 && fT_GeV > 1.3 ) {
-    t_ev++;
-    return;
-  }
-  */ 
 
   // 31/01/23 SJDK - New limit on t, remove only events outside the parameterisation range
   // 06/09/23 SJDK - fT_Max set in eic.cc depending upon ejectile type
@@ -504,8 +488,8 @@ void DEMP_Reaction::Processing_Event() {
     return;
   }
   
-  fx = fQsq_GeV / ( 2.0 * r_lprotong.Dot( r_lphotong ) );
-  fy = r_lprotong.Dot( r_lphotong ) / r_lprotong.Dot( r_lelectrong );
+  fx = fQsq_GeV / ( 2.0 * r_lHBeamg.Dot( r_lphotong ) );
+  fy = r_lHBeamg.Dot( r_lphotong ) / r_lHBeamg.Dot( r_lelectrong );
   fz = r_l_Ejectile.E()/r_lphoton.E();    
 
   // -------------------------------------------------------------------------------------------------------
@@ -561,7 +545,7 @@ void DEMP_Reaction::Processing_Event() {
   double fTheta_EEp = (lelectron_rf.Vect()).Angle(lscatelec_rf.Vect());
 
   fEpsilon = 1.0 / ( 1.0 + 2.0 * ( pow( (lphoton_rfg.Vect()).Mag(),2)/fQsq_GeV ) * pow( tan( fTheta_EEp / 2 ) , 2 ) );
-
+  // 14/09/23 - Proton masses here need to remain in calculations? A bit tricky, for other beams, will need different calculations?
   // ----------------------------------------------------
   // Virtual Photon flux factor in units of 1/(GeV*Sr)
   // ----------------------------------------------------
@@ -652,54 +636,22 @@ void DEMP_Reaction::Progress_Report() {
   }
 }
 
-TLorentzVector DEMP_Reaction::GetProtonVector_lab() {
+TLorentzVector DEMP_Reaction::GetHBeamVector_lab() {
 
-  // Crossing angle
-  //	 fProton_Theta_Col = 0.050;
-  //	 fProton_Theta_Col = 0.025;
-  // SJDK - 12/01/22
-  // Set crossing angle to 0 for fun4all, also required for ATHENA simulations
-  fProton_Theta_Col = 0.0;
+  fHBeam_Theta_Col = 0.0;
+  fHBeam_Phi_Col   = fHBeam_incidence_phi; 
 
-  ///*--------------------------------------------------*/
-  /// The 
-  //     fProton_Phi_Col   = fPi; 
-  fProton_Phi_Col   = fProton_incidence_phi; 
-
-  fProton_Mom_Col   = fHBeam * 1e3; 
+  fHBeam_Mom_Col   = fHBeam * 1e3; 
   fVertex_X         = 0.; 
   fVertex_Y         = 0.; 
   fVertex_Z         = 0.; 
  
-  TLorentzVector lproton( fProton_Mom_Col * sin(fProton_Theta_Col) * cos(fProton_Phi_Col),
-			  fProton_Mom_Col * sin(fProton_Theta_Col) * sin(fProton_Phi_Col),
-			  fProton_Mom_Col * cos(fProton_Theta_Col),
-			  sqrt( pow( fProton_Mom_Col , 2 ) + pow( fProton_Mass , 2 ) ) ); 
+  TLorentzVector lHBeam( fHBeam_Mom_Col * sin(fHBeam_Theta_Col) * cos(fHBeam_Phi_Col),
+			  fHBeam_Mom_Col * sin(fHBeam_Theta_Col) * sin(fHBeam_Phi_Col),
+			  fHBeam_Mom_Col * cos(fHBeam_Theta_Col),
+			  sqrt( pow( fHBeam_Mom_Col , 2 ) + pow( fHBeam_Mass , 2 ) ) ); 
 
-  return lproton;
-
-}
-
-//*--------------------------------------------------*/
-// Proton in collider (lab) frame
-// ----------------------------------------------------
-
-void DEMP_Reaction::Consider_Proton_Fermi_Momentum() {
-
-  fProton_Mom_Col   = fProton_Mom_Col + rFermiMomentum;
-  fProton_Theta_Col = acos( fRandom->Uniform( cos(0.0) , cos(fPi) ) );
-  fProton_Phi_Col   = fRandom->Uniform( 0 , 360 );
-
-  double px, py, pz, e;
-
-  px = fProton_Mom_Col * sin(fProton_Theta_Col) * cos(fProton_Phi_Col);
-  py = fProton_Mom_Col * sin(fProton_Theta_Col) * sin(fProton_Phi_Col);
-  pz = fProton_Mom_Col * cos(fProton_Theta_Col);
-  e  = sqrt( pow( fProton_Mom_Col , 2 ) + pow( fProton_Mass , 2 ) );
-
-  r_lproton.SetPxPyPzE(px,py,pz,e);
-
-  r_lprotong = r_lproton*fm;
+  return lHBeam;
 
 }
 
@@ -1253,3 +1205,56 @@ int DEMP_Reaction::Solve(double theta, double phi)
   return 1;
 
 }
+
+// 14/09/23 - SJDK - These aren't actually used for now, commented out
+/*
+LorentzVector DEMP_Reaction::GetProtonVector_lab() {
+
+  // Crossing angle
+  //	 fProton_Theta_Col = 0.050;
+  //	 fProton_Theta_Col = 0.025;
+  // SJDK - 12/01/22
+  // Set crossing angle to 0 for fun4all, also required for ATHENA simulations
+  fProton_Theta_Col = 0.0;
+
+  fProton_Phi_Col   = fProton_incidence_phi; 
+
+  fProton_Mom_Col   = fHBeam * 1e3; 
+  fVertex_X         = 0.; 
+  fVertex_Y         = 0.; 
+  fVertex_Z         = 0.; 
+ 
+  TLorentzVector lproton( fProton_Mom_Col * sin(fProton_Theta_Col) * cos(fProton_Phi_Col),
+			  fProton_Mom_Col * sin(fProton_Theta_Col) * sin(fProton_Phi_Col),
+			  fProton_Mom_Col * cos(fProton_Theta_Col),
+			  sqrt( pow( fProton_Mom_Col , 2 ) + pow( fProton_Mass , 2 ) ) ); 
+
+  return lproton;
+
+}
+*/
+
+//*--------------------------------------------------*/
+// Proton in collider (lab) frame
+// ----------------------------------------------------
+// 14/09/23 - SJDK - Relies upon r_lproton -> Should be set to r_lHBeam? Not sure exactly what is being calculated and how in here. Function isn't currently used anyway, commented out.
+/*
+void DEMP_Reaction::Consider_Proton_Fermi_Momentum() {
+
+  fProton_Mom_Col   = fProton_Mom_Col + rFermiMomentum;
+  fProton_Theta_Col = acos( fRandom->Uniform( cos(0.0) , cos(fPi) ) );
+  fProton_Phi_Col   = fRandom->Uniform( 0 , 360 );
+
+  double px, py, pz, e;
+
+  px = fProton_Mom_Col * sin(fProton_Theta_Col) * cos(fProton_Phi_Col);
+  py = fProton_Mom_Col * sin(fProton_Theta_Col) * sin(fProton_Phi_Col);
+  pz = fProton_Mom_Col * cos(fProton_Theta_Col);
+  e  = sqrt( pow( fProton_Mom_Col , 2 ) + pow( fProton_Mass , 2 ) );
+
+  r_lproton.SetPxPyPzE(px,py,pz,e);
+
+  r_lprotong = r_lproton*fm;
+
+}
+*/

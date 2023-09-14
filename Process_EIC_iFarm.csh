@@ -53,13 +53,13 @@ else
     set RecoilHadron=""
 endif
 
-echo "Running target polarisation up, FF setting for file $FileNum with $NumEvents events per file for $EBeamE GeV e- on $HBeamE GeV p using random seed $RandomSeed, using $OutputType format output for $Ejectile $RecoilHadron events."
+echo "Running file $FileNum with $NumEvents events per file for $EBeamE GeV e- on $HBeamE GeV p using random seed $RandomSeed, using $OutputType format output for $Ejectile $RecoilHadron events."
     
 # Set the config file name based upon inputs
 set ConfigFilename = $DEMPGENPath'/Config_EIC_'$EBeamE'on'$HBeamE'_'$InteractionPoint'_'$Ejectile$RecoilHadron'_'$NumEvents'_'$FileNum'.json'
 
 # Copy the default config file to our constructed filename
-cp "$DEMPGENPath/Config_EIC.json" $ConfigFilename
+cp "$DEMPGENPxath/Config_EIC.json" $ConfigFilename
 
 # Use sed commands to change our config file based upon inputs
 sed -i 's/"file_name" \:.*/"file_name" \: "DEMPGen_'$EBeamE'on'$HBeamE'_'$InteractionPoint'_'$Particle$Hadron'_'$NumEvents'_'$FileNum'",/' $ConfigFilename

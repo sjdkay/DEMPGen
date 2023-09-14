@@ -106,10 +106,14 @@ class DEMP_Reaction {
   double f_Ejectile_Theta_I, f_Ejectile_Theta_F;
 
   TLorentzVector GetProtonVector_lab();
+  TLorentzVector GetHBeamVector_lab();
   TLorentzVector GetElectronVector_lab();
 
   TLorentzVector r_lproton;     // Proton in collider (lab) frame
   TLorentzVector r_lprotong;	
+
+  TLorentzVector r_lHBeam;     // Hadron beam in collider (lab) frame
+  TLorentzVector r_lHBeamg;	
 
   TLorentzVector r_lelectron;   // Electron in collider (lab) frame
   TLorentzVector r_lelectrong;	
@@ -119,6 +123,9 @@ class DEMP_Reaction {
 
   Double_t r_lhadron_beam_mass;	
   Double_t r_lhadron_beam_massg;	
+
+  Double_t r_lHBeam_mass;	
+  Double_t r_lHBeam_massg;	
 		
   TVector3 beta_col_rf; // Boost vector from collider (lab) frame to protons rest frame (Fix target)
 
