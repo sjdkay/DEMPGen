@@ -80,17 +80,9 @@ double fElectron_Energy_Col, fElectron_MomZ_Col, fElectron_MomX_Col, fElectron_M
 
 double fElectron_MS_Energy_Col, fElectron_MS_MomZ_Col, fElectron_MS_MomX_Col, fElectron_MS_MomY_Col, fElectron_MS_Thet_a_Col, fElectron_MS_Phi_Col, fElectron_MS_Mom_Col;
 
-double fElectron_Energy_Col_GeV, fElectron_Mom_Col_GeV, fElectron_MomX_Col_GeV, fElectron_MomY_Col_GeV, fElectron_MomZ_Col_GeV, fElectronEnergyLess, fElectronThetaLess, fRadiation_Lenght_Air;
+double fElectron_Energy_Col_GeV, fElectron_Mom_Col_GeV, fElectron_MomX_Col_GeV, fElectron_MomY_Col_GeV, fElectron_MomZ_Col_GeV;
 
-double fElectron_Targ_Thickness, fElectron_Targ_Thickness_RadLen, fElectron_Targ_BT, fElectron_Targ_Bremss_Loss, fElectron_Targ_Ion_Loss, fElectron_TargWindow_Bremss_Loss, fElectron_TargWindow_Ion_Loss;
-
-double fElectron_Air_Thickness, fElectron_Air_Thickness_RadLen, fElectron_Air_BT, fElectron_Air_Bremss_Loss, fElectron_Air_Ion_Loss, fElectron_Corrected_Energy_Col, fElectron_Corrected_Mom_Col, fElectron_Corrected_MomX_Col, fElectron_Corrected_MomY_Col, fElectron_Corrected_MomZ_Col, fElectron_Corrected_Theta_Col, fElectron_Corrected_Phi_Col, fElectron_Delta_Mom_Col, fElectron_Corrected_Energy_Col_GeV, fElectron_Corrected_Mom_Col_GeV, fElectron_Corrected_MomX_Col_GeV, fElectron_Corrected_MomY_Col_GeV, fElectron_Corrected_MomZ_Col_GeV, fElectron_Delta_Mom_Col_GeV;
-
-double fScatElec_Energy_Col, fScatElec_MomZ_Col, fScatElec_MomX_Col, fScatElec_MomY_Col, fScatElec_Theta_Col, fScatElec_Phi_Col, fScatElec_Mom_Col, fScatElec_Energy_Col_GeV, fScatElec_Mom_Col_GeV, fScatElec_MomX_Col_GeV, fScatElec_MomY_Col_GeV, fScatElec_MomZ_Col_GeV, fScatElecEnergyLess, fScatElecThetaLess, fScatElec_Targ_Thickness, fScatElec_Targ_Thickness_RadLen, fScatElec_Targ_BT, fScatElec_Targ_Bremss_Loss, fScatElec_Targ_Ion_Loss, fScatElec_Air_Thickness, fScatElec_Air_Thickness_RadLen, fScatElec_Air_BT, fScatElec_Air_Bremss_Loss, fScatElec_Air_Ion_Loss, fScatElec_Corrected_Energy_Col, fScatElec_Corrected_Mom_Col, fScatElec_Corrected_MomX_Col, fScatElec_Corrected_MomY_Col, fScatElec_Corrected_MomZ_Col, fScatElec_Corrected_Theta_Col, fScatElec_Corrected_Phi_Col, fScatElec_Delta_Mom_Col, fScatElec_Corrected_Energy_Col_GeV, fScatElec_Corrected_Mom_Col_GeV, fScatElec_Corrected_MomX_Col_GeV, fScatElec_Corrected_MomY_Col_GeV, fScatElec_Corrected_MomZ_Col_GeV, fScatElec_Delta_Mom_Col_GeV, fScatElec_TargWindow_Bremss_Loss, fScatElec_TargWindow_Ion_Loss, fTargWindow_Thickness, fTargWindow_Thickness_RadLen, fTargWindow_BT;
-
-double fPion_TargWindow_Ion_Loss, fPion_Targ_Thickness, fPion_Targ_Thickness_RadLen, fPion_Targ_BT, fPion_Targ_Bremss_Loss, fPion_Targ_Ion_Loss, fPion_Air_Thickness, fPion_Air_Thickness_RadLen, fPion_Air_BT, fPion_Air_Bremss_Loss, fPion_Air_Ion_Loss;
-
-double fPion_MS_Energy_Col, fPion_MS_MomZ_Col, fPion_MS_MomX_Col, fPion_MS_MomY_Col, fPion_MS_Theta_Col, fPion_MS_Phi_Col, fPion_MS_Mom_Col;
+double fScatElec_Energy_Col, fScatElec_MomZ_Col, fScatElec_MomX_Col, fScatElec_MomY_Col, fScatElec_Theta_Col, fScatElec_Phi_Col, fScatElec_Mom_Col, fScatElec_Energy_Col_GeV, fScatElec_Mom_Col_GeV, fScatElec_MomX_Col_GeV, fScatElec_MomY_Col_GeV, fScatElec_MomZ_Col_GeV;
 
 double fPion_Theta_Col, fPion_Phi_Col, fPion_Energy_Col, fPion_Mom_Col, fPion_MomZ_Col, fPion_MomX_Col, fPion_MomY_Col, fPion_Energy_Col_GeV, fPion_Mom_Col_GeV, fPion_MomX_Col_GeV, fPion_MomY_Col_GeV, fPion_MomZ_Col_GeV;
 
@@ -327,8 +319,6 @@ void pim::Initilize() {
     fSolveEvents_1Sol                           = 0;
     fSolveEvents_2Sol                           = 0;
     fSDiff                                      = 0;
-    fScatElecEnergyLess                         = 0;
-    fScatElecThetaLess                          = 0;
     fPionEnergyCMLess                           = 0;
     fSNotEqual                                  = 0;
     fVertex_X                                   = 0;
@@ -379,33 +369,6 @@ void pim::Initilize() {
     fScatElec_Angle                             = 0;
     fScatElec_Alpha_RF                          = 0;
     fScatElec_Beta_RF                           = 0;
-    fRadiation_Lenght_Air                       = 0;
-    fElectron_Targ_Thickness                    = 0;
-    fElectron_Targ_Thickness_RadLen             = 0;
-    fElectron_Targ_BT                           = 0;
-    fElectron_Targ_Bremss_Loss                  = 0;
-    fElectron_Targ_Ion_Loss                     = 0;
-    fElectron_TargWindow_Bremss_Loss            = 0;
-    fElectron_TargWindow_Ion_Loss               = 0;
-    fElectron_Air_Thickness                     = 0;
-    fElectron_Air_Thickness_RadLen              = 0;
-    fElectron_Air_BT                            = 0;
-    fElectron_Air_Bremss_Loss                   = 0;
-    fElectron_Air_Ion_Loss                      = 0;
-    fElectron_Corrected_Theta_Col               = 0;
-    fElectron_Corrected_Phi_Col                 = 0;
-    fElectron_Corrected_Energy_Col              = 0;
-    fElectron_Corrected_Mom_Col                 = 0;
-    fElectron_Corrected_MomX_Col                = 0;
-    fElectron_Corrected_MomY_Col                = 0;
-    fElectron_Corrected_MomZ_Col                = 0;
-    fElectron_Delta_Mom_Col                     = 0;
-    fElectron_Corrected_Energy_Col_GeV          = 0;
-    fElectron_Corrected_Mom_Col_GeV             = 0;
-    fElectron_Corrected_MomX_Col_GeV            = 0;
-    fElectron_Corrected_MomY_Col_GeV            = 0;
-    fElectron_Corrected_MomZ_Col_GeV            = 0;
-    fElectron_Delta_Mom_Col_GeV                 = 0;
   
     fElectron_Energy_Col                        = 0;
     fElectron_MomZ_Col                          = 0;
@@ -420,30 +383,6 @@ void pim::Initilize() {
     fElectron_MomX_Col_GeV                      = 0;
     fElectron_MomY_Col_GeV                      = 0;
     fElectron_MomZ_Col_GeV                      = 0;
-    fScatElec_Targ_Thickness                    = 0;
-    fScatElec_Targ_Thickness_RadLen             = 0;
-    fScatElec_Targ_BT                           = 0;
-    fScatElec_Targ_Bremss_Loss                  = 0;
-    fScatElec_Targ_Ion_Loss                     = 0;
-    fScatElec_Air_Thickness                     = 0;
-    fScatElec_Air_Thickness_RadLen              = 0;
-    fScatElec_Air_BT                            = 0;
-    fScatElec_Air_Bremss_Loss                   = 0;
-    fScatElec_Air_Ion_Loss                      = 0;
-    fScatElec_Corrected_Theta_Col               = 0;
-    fScatElec_Corrected_Phi_Col                 = 0;
-    fScatElec_Corrected_Energy_Col              = 0;
-    fScatElec_Corrected_Mom_Col                 = 0;
-    fScatElec_Corrected_MomX_Col                = 0;
-    fScatElec_Corrected_MomY_Col                = 0;
-    fScatElec_Corrected_MomZ_Col                = 0;
-    fScatElec_Delta_Mom_Col                     = 0;
-    fScatElec_Corrected_Energy_Col_GeV          = 0;
-    fScatElec_Corrected_Mom_Col_GeV             = 0;
-    fScatElec_Corrected_MomX_Col_GeV            = 0;
-    fScatElec_Corrected_MomY_Col_GeV            = 0;
-    fScatElec_Corrected_MomZ_Col_GeV            = 0;
-    fScatElec_Delta_Mom_Col_GeV                 = 0;
     fScatElec_Energy_Col                        = 0;
     fScatElec_MomZ_Col                          = 0;
     fScatElec_MomX_Col                          = 0;
@@ -455,34 +394,8 @@ void pim::Initilize() {
     fScatElec_Mom_Col_GeV                       = 0;
     fScatElec_MomX_Col_GeV                      = 0;
     fScatElec_MomY_Col_GeV                      = 0;
-    fScatElec_MomZ_Col_GeV                      = 0;
-      
-    fScatElec_TargWindow_Bremss_Loss            = 0;
-    fScatElec_TargWindow_Ion_Loss               = 0;
-    fTargWindow_Thickness                       = 0;
-    fTargWindow_Thickness_RadLen                = 0;
-    fTargWindow_BT                              = 0; 
-    fPion_TargWindow_Ion_Loss                   = 0;
-    fNeutron_TargWindow_Ion_Loss                = 0;
+    fScatElec_MomZ_Col_GeV                      = 0;      
     
-    fPion_MS_Energy_Col                         = 0;
-    fPion_MS_MomZ_Col                           = 0;
-    fPion_MS_MomX_Col                           = 0;
-    fPion_MS_MomY_Col                           = 0;
-    fPion_MS_Theta_Col                          = 0;
-    fPion_MS_Phi_Col                            = 0;
-    fPion_MS_Mom_Col                            = 0;
-  
-    fPion_Targ_Thickness                        = 0;
-    fPion_Targ_Thickness_RadLen                 = 0;
-    fPion_Targ_BT                               = 0;
-    fPion_Targ_Bremss_Loss                      = 0;
-    fPion_Targ_Ion_Loss                         = 0;
-    fPion_Air_Thickness                         = 0;
-    fPion_Air_Thickness_RadLen                  = 0;
-    fPion_Air_BT                                = 0;
-    fPion_Air_Bremss_Loss                       = 0;
-    fPion_Air_Ion_Loss                          = 0;
     fPion_Corrected_Theta_Col                   = 0;
     fPion_Corrected_Phi_Col                     = 0;
     fPion_Corrected_Energy_Col                  = 0;
