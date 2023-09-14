@@ -22,36 +22,39 @@
 
 class Reaction{
 
- public:
+public:
   Reaction();
   Reaction(TString);
   Reaction(TString, TString);
+  Reaction(TString, TString, TString);
   ~Reaction();
 
   void process_reaction();		
   TString GetEjectile() {return rEjectile;};		
   TString GetRecoilHadron() {return rRecoil;};
   
- protected:
+protected:
   TStopwatch tTime;
 
   TString rEjectile;
   TString rRecoil;
+  TString rHBeam;
 
 };
 
 class DEMP_Reaction {
 
- public:
+public:
   DEMP_Reaction();
   DEMP_Reaction(TString, TString);
+  DEMP_Reaction(TString, TString, TString);
   ~DEMP_Reaction();
 
   void process_reaction();		
   TString GetEjectile() {return rEjectile;};		
   TString GetRecoilHadron() {return rRecoil;};
 
- protected:
+protected:
 
   void Init();
   void Processing_Event();
@@ -84,7 +87,8 @@ class DEMP_Reaction {
   TString rEjectile_charge;
   TString rEjectile_scat_hadron;
   TString rRecoil;
-
+  TString rHBeam;
+  
   std::string sTFile;   /// Generator output files. For documentation and monitoring purposes 
   std::string sLFile;   /// Lund input file into the EIC simulation
   std::string sDFile;   /// Root diagnostic plot in root file format

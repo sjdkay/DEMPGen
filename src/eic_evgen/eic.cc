@@ -211,14 +211,14 @@ void eic(Json::Value obj) {
   }
 
   if (obj.isMember("hbeam_part")){
-    gBeamPart = obj["hbeam_part"].asString();
+    gHBeamPart = obj["hbeam_part"].asString();
   } 
   else {
-    gBeamPart = "Proton";
+    gHBeamPart = "Proton";
   }
   
   // 13/09/23 - SJDK - Set the hadron beam mass based upon the beam particle - this should be reported elsewhere
-  fHBeam_Mass = ParticleMass(ParticleEnum(gBeamPart.c_str()))*1000;
+  fHBeam_Mass = ParticleMass(ParticleEnum(gHBeamPart.c_str()))*1000;
   
   // SJDK - 12/01/22
   // Set output type as a .json read in
@@ -336,7 +336,7 @@ void eic(Json::Value obj) {
   SigPar = ReadCrossSectionPar(Ejectile, RecoilHadron);
 	
   if(Ejectile != "pi0"){ // Default case now
-    Reaction* r1 = new Reaction(Ejectile, RecoilHadron);
+    Reaction* r1 = new Reaction(Ejectile, RecoilHadron, gHBeamPart);
     r1->process_reaction();
     delete r1;
   }

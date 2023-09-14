@@ -16,41 +16,60 @@
 
 using namespace std;
 
-
 /*--------------------------------------------------*/
 /// Reaction 
 Reaction::Reaction(TString ejectile_str) { 
 
- 	rEjectile = ejectile_str;
-	cout << "Produced ejectile is: " << GetEjectile() << endl; 
-	cout << "Generated process: e + p -> e' + p' + " << GetEjectile() << endl; 
-    	tTime.Start(); 
+  rEjectile = ejectile_str;
+  cout << "Produced ejectile is: " << GetEjectile() << endl; 
+  cout << "Generated process: e + p -> e' + p' + " << GetEjectile() << endl; 
+  tTime.Start(); 
  
- 	cout << "/*--------------------------------------------------*/" << endl;
- 	cout << "Starting setting up process" << endl;
- 	cout << endl;
+  cout << "/*--------------------------------------------------*/" << endl;
+  cout << "Starting setting up process" << endl;
+  cout << endl;
  
-    	TDatime dsTime;
-   	cout << "Start Time:   " << dsTime.GetHour() << ":" << dsTime.GetMinute() << endl;
+  TDatime dsTime;
+  cout << "Start Time:   " << dsTime.GetHour() << ":" << dsTime.GetMinute() << endl;
 
 }
 
-// SJDK 09/02/22 - New reaction where the particle and hadron are specified
+// SJDK 09/02/22 - New reaction where the ejectile and recoil hadron are specified
 Reaction::Reaction(TString ejectile_str, TString recoil_hadron_str) { 
 
- 	rEjectile = ejectile_str;
-	rRecoil = recoil_hadron_str;
-	cout << "Produced ejectile is: " << GetEjectile() << endl; 
-	cout << "Produced recoil hadron is: " << GetRecoilHadron() << endl;
-	cout << "Generated process: e + p -> e'+ " << GetRecoilHadron() << " + " << GetEjectile() << endl; 
-    	tTime.Start(); 
+  rEjectile = ejectile_str;
+  rRecoil = recoil_hadron_str;
+  cout << "Produced ejectile is: " << GetEjectile() << endl; 
+  cout << "Produced recoil hadron is: " << GetRecoilHadron() << endl;
+  cout << "Generated process: e + p -> e'+ " << GetRecoilHadron() << " + " << GetEjectile() << endl; 
+  tTime.Start(); 
  
- 	cout << "/*--------------------------------------------------*/" << endl;
- 	cout << "Starting setting up process" << endl;
- 	cout << endl;
+  cout << "/*--------------------------------------------------*/" << endl;
+  cout << "Starting setting up process" << endl;
+  cout << endl;
  
-    	TDatime dsTime;
-   	cout << "Start Time:   " << dsTime.GetHour() << ":" << dsTime.GetMinute() << endl;
+  TDatime dsTime;
+  cout << "Start Time:   " << dsTime.GetHour() << ":" << dsTime.GetMinute() << endl;
+
+}
+
+// SJDK 14/09/23 - New reaction where the ejectile, recoil hadron  and hadron beam are specified
+Reaction::Reaction(TString ejectile_str, TString recoil_hadron_str, TString HBeam_str) { 
+
+  rEjectile = ejectile_str;
+  rRecoil = recoil_hadron_str;
+  rHBeam = HBeam_str;
+  cout << "Produced ejectile is: " << GetEjectile() << endl; 
+  cout << "Produced recoil hadron is: " << GetRecoilHadron() << endl;
+  cout << "Generated process: e + "<< rHBeam <<  " -> e'+ " << GetRecoilHadron() << " + " << GetEjectile() << endl; 
+  tTime.Start(); 
+ 
+  cout << "/*--------------------------------------------------*/" << endl;
+  cout << "Starting setting up process" << endl;
+  cout << endl;
+ 
+  TDatime dsTime;
+  cout << "Start Time:   " << dsTime.GetHour() << ":" << dsTime.GetMinute() << endl;
 
 }
 
@@ -58,18 +77,18 @@ Reaction::Reaction(){};
 
 Reaction::~Reaction() {
  
-//	ppiOut.close();
-// 	ppiDetails.close();
+  //	ppiOut.close();
+  // 	ppiDetails.close();
  
- 	cout << endl;
- 	cout << "Ending the process" << endl;
- 	cout << "/*--------------------------------------------------*/" << endl;
+  cout << endl;
+  cout << "Ending the process" << endl;
+  cout << "/*--------------------------------------------------*/" << endl;
  
-    	tTime.Stop();
-    	tTime.Print();
+  tTime.Stop();
+  tTime.Print();
  
-    	TDatime deTime;
-    	cout << "End Time:   " << deTime.GetHour() << ":" << deTime.GetMinute() << endl;
+  TDatime deTime;
+  cout << "End Time:   " << deTime.GetHour() << ":" << deTime.GetMinute() << endl;
  
 }
 
@@ -79,8 +98,8 @@ Reaction::~Reaction() {
 void Reaction::process_reaction() {
 
   // SJDK - 19/12/22 - New generic DEMP reaction class, the intention is that this should be able to handle any case
-    DEMP_Reaction* rr1 = new DEMP_Reaction(rEjectile, rRecoil);
-    rr1->process_reaction();
-    delete rr1;
+  DEMP_Reaction* rr1 = new DEMP_Reaction(rEjectile, rRecoil, rHBeam);
+  rr1->process_reaction();
+  delete rr1;
 
 }

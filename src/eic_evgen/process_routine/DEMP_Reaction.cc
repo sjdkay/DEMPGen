@@ -18,7 +18,17 @@ DEMP_Reaction::DEMP_Reaction(TString particle_str, TString hadron_str) {
 
   rEjectile = particle_str;
   rRecoil = hadron_str;
+  rHBeam = "Proton";
+    
+}
 
+
+DEMP_Reaction::DEMP_Reaction(TString particle_str, TString hadron_str, TString HBeam_str) { 
+
+  rEjectile = particle_str;
+  rRecoil = hadron_str;
+  rHBeam = HBeam_str;
+    
 }
 
 DEMP_Reaction::~DEMP_Reaction() {
@@ -113,7 +123,7 @@ void DEMP_Reaction::Init() {
 
   // ----------------------------------------------------
   // Hadron beam particle in collider (lab) frame
-  // 13/09/23 - SJDK - Swapped from "proton" to the more generic HBeam, note gBeamPart is the particle name string
+  // 13/09/23 - SJDK - Swapped from "proton" to the more generic HBeam, note gHBeamPart is the particle name string
   // Need to think carefully about how different beams will actually be implemented. Most of the other "beam" is just spectator junk. 
   r_lHBeam = GetHBeamVector_lab();
   r_lHBeamg = GetHBeamVector_lab() * fm;
@@ -170,11 +180,11 @@ void DEMP_Reaction::Init() {
   f_Ejectile_Theta_F = fEjectileX_Theta_F;
 
   cout << "Produced ejectile in exclusive production: " << rEjectile << ";  with mass: " << f_Ejectile_Mass << " MeV "<< endl;
-  if (gBeamPart == "Proton"){
+  if (rHBeam == "Proton"){
     cout << fEBeam << " GeV electrons on " << fHBeam << " GeV protons" << endl;
   }
   else{
-    cout << fEBeam << " GeV electrons on " << fHBeam << " GeV " << gBeamPart << " ions" << endl;
+    cout << fEBeam << " GeV electrons on " << fHBeam << " GeV " << rHBeam << " ions" << endl;
   }
   if(UseSolve == true){
     cout << rEjectile << " and " << rEjectile_scat_hadron << " 4-vectors calculated using Solve function" << endl;

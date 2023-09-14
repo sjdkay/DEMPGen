@@ -53,7 +53,7 @@ extern bool gPi0_decay;
 extern bool UseSolve;
 extern std::string gDet_location;
 extern std::string gOutputType;
-extern std::string gBeamPart;
+extern std::string gHBeamPart;
 extern float fProton_incidence_phi;
 extern float fHBeam_incidence_phi;
 
