@@ -90,17 +90,11 @@ double fKaon_Theta_Col, fKaon_Phi_Col, fKaon_Energy_Col, fKaon_Mom_Col, fKaon_Mo
 
 double fScathad_Theta_Col, fScathad_Phi_Col, fScathad_Energy_Col, fScathad_Mom_Col, fScathad_MomZ_Col, fScathad_MomX_Col, fScathad_MomY_Col, fScathad_Energy_Col_GeV, fScathad_Mom_Col_GeV, fScathad_MomX_Col_GeV, fScathad_MomY_Col_GeV, fScathad_MomZ_Col_GeV;
 
-double fPion_FSI_Theta_Col, fPion_FSI_Phi_Col, fPion_FSI_Energy_Col, fPion_FSI_Mom_Col, fPion_FSI_MomZ_Col, fPion_FSI_MomX_Col, fPion_FSI_MomY_Col, fPion_FSI_Energy_Col_GeV, fPion_FSI_Mom_Col_GeV, fPion_FSI_MomX_Col_GeV, fPion_FSI_MomY_Col_GeV, fPion_FSI_MomZ_Col_GeV;
-
-double fPion_Corrected_Theta_Col, fPion_Corrected_Phi_Col, fPion_Corrected_Energy_Col, fPion_Corrected_Mom_Col, fPion_Corrected_MomX_Col, fPion_Corrected_MomY_Col, fPion_Corrected_MomZ_Col, fPion_Delta_Mom_Col, fPion_Corrected_Energy_Col_GeV, fPion_Corrected_Mom_Col_GeV, fPion_Corrected_MomX_Col_GeV, fPion_Corrected_MomY_Col_GeV, fPion_Corrected_MomZ_Col_GeV, fPion_Delta_Mom_Col_GeV;
-
-double fNeutron_MS_Energy_Col, fNeutron_MS_MomZ_Col, fNeutron_MS_MomX_Col, fNeutron_MS_MomY_Col, fNeutron_MS_Theta_Col, fNeutron_MS_Phi_Col, fNeutron_MS_Mom_Col;
-
-double fNeutron_TargWindow_Ion_Loss, fNeutron_Targ_Thickness, fNeutron_Targ_Thickness_RadLen, fNeutron_Targ_BT, fNeutron_Targ_Bremss_Loss, fNeutron_Targ_Ion_Loss, fNeutron_Air_Thickness, fNeutron_Air_Thickness_RadLen, fNeutron_Air_BT, fNeutron_Air_Bremss_Loss, fNeutron_Air_Ion_Loss, fNeutron_Theta_Col, fNeutron_Phi_Col, fNeutron_Energy_Col, fNeutron_Mom_Col, fNeutron_MomZ_Col, fNeutron_MomX_Col, fNeutron_MomY_Col, fNeutron_Energy_Col_GeV, fNeutron_Mom_Col_GeV, fNeutron_MomX_Col_GeV, fNeutron_MomY_Col_GeV, fNeutron_MomZ_Col_GeV, fNeutron_Corrected_Theta_Col, fNeutron_Corrected_Phi_Col, fNeutron_Corrected_Energy_Col, fNeutron_Corrected_Mom_Col, fNeutron_Corrected_MomX_Col, fNeutron_Corrected_MomY_Col, fNeutron_Corrected_MomZ_Col, fNeutron_Delta_Mom_Col, fNeutron_Corrected_Energy_Col_GeV, fNeutron_Corrected_Mom_Col_GeV, fNeutron_Corrected_MomX_Col_GeV, fNeutron_Corrected_MomY_Col_GeV, fNeutron_Corrected_MomZ_Col_GeV, fNeutron_Delta_Mom_Col_GeV;
+double  fNeutron_Theta_Col, fNeutron_Phi_Col, fNeutron_Energy_Col, fNeutron_Mom_Col, fNeutron_MomZ_Col, fNeutron_MomX_Col, fNeutron_MomY_Col, fNeutron_Energy_Col_GeV, fNeutron_Mom_Col_GeV, fNeutron_MomX_Col_GeV, fNeutron_MomY_Col_GeV, fNeutron_MomZ_Col_GeV;
 
 double fRecoilProton_Energy_RF, fRecoilProton_Mom_RF, fRecoilProton_MomX_RF, fRecoilProton_MomY_RF, fRecoilProton_MomZ_RF, fRecoilProton_Energy_RF_GeV, fRecoilProton_Mom_RF_GeV, fRecoilProton_MomX_RF_GeV, fRecoilProton_MomY_RF_GeV, fRecoilProton_MomZ_RF_GeV, fRecoilProton_Theta_RF, fRecoilProton_Phi_RF;
 
-double fRecoilProton_Targ_Thickness, fRecoilProton_Targ_Thickness_RadLen, fRecoilProton_Targ_BT, fRecoilProton_Targ_Bremss_Loss, fRecoilProton_Targ_Ion_Loss, fRecoilProton_Air_Thickness, fRecoilProton_Air_Thickness_RadLen, fRecoilProton_Air_BT, fRecoilProton_Air_Bremss_Loss, fRecoilProton_Air_Ion_Loss, fRecoilProton_Theta_Col, fRecoilProton_Phi_Col, fRecoilProton_Energy_Col, fRecoilProton_Mom_Col, fRecoilProton_MomZ_Col, fRecoilProton_MomX_Col, fRecoilProton_MomY_Col, fRecoilProton_Energy_Col_GeV, fRecoilProton_Mom_Col_GeV, fRecoilProton_MomX_Col_GeV, fRecoilProton_MomY_Col_GeV, fRecoilProton_MomZ_Col_GeV, fRecoilProton_Corrected_Theta_Col, fRecoilProton_Corrected_Phi_Col, fRecoilProton_Corrected_Energy_Col, fRecoilProton_Corrected_Mom_Col, fRecoilProton_Corrected_MomX_Col, fRecoilProton_Corrected_MomY_Col, fRecoilProton_Corrected_MomZ_Col, fRecoilProton_Delta_Mom_Col, fRecoilProton_Corrected_Energy_Col_GeV, fRecoilProton_Corrected_Mom_Col_GeV, fRecoilProton_Corrected_MomX_Col_GeV, fRecoilProton_Corrected_MomY_Col_GeV, fRecoilProton_Corrected_MomZ_Col_GeV, fRecoilProton_Delta_Mom_Col_GeV;
+double fRecoilProton_Theta_Col, fRecoilProton_Phi_Col, fRecoilProton_Energy_Col, fRecoilProton_Mom_Col, fRecoilProton_MomZ_Col, fRecoilProton_MomX_Col, fRecoilProton_MomY_Col, fRecoilProton_Energy_Col_GeV, fRecoilProton_Mom_Col_GeV, fRecoilProton_MomX_Col_GeV, fRecoilProton_MomY_Col_GeV, fRecoilProton_MomZ_Col_GeV;
 
 double fSSAsym, fSineAsym, fInvariantDif, fT_GeV, fProton_Kin_Col, fQsq_Value, fQsq_Dif, fQsq_GeV, fQsq, fW_GeV_Col, fW_Col, fW, fW_GeV, fW_Prime_GeV, fW_Corrected_Prime_GeV, fWSq, fWSq_GeV, fWSq_PiN, fWSq_PiN_GeV, fWSq_Top_PiN_GeV, fWSq_Bot_PiN_GeV;
 
@@ -395,22 +389,7 @@ void pim::Initilize() {
     fScatElec_MomX_Col_GeV                      = 0;
     fScatElec_MomY_Col_GeV                      = 0;
     fScatElec_MomZ_Col_GeV                      = 0;      
-    
-    fPion_Corrected_Theta_Col                   = 0;
-    fPion_Corrected_Phi_Col                     = 0;
-    fPion_Corrected_Energy_Col                  = 0;
-    fPion_Corrected_Mom_Col                     = 0;
-    fPion_Corrected_MomX_Col                    = 0;
-    fPion_Corrected_MomY_Col                    = 0;
-    fPion_Corrected_MomZ_Col                    = 0;
-    fPion_Delta_Mom_Col                         = 0;
-    fPion_Corrected_Energy_Col_GeV              = 0;
-    fPion_Corrected_Mom_Col_GeV                 = 0;
-    fPion_Corrected_MomX_Col_GeV                = 0;
-    fPion_Corrected_MomY_Col_GeV                = 0;
-    fPion_Corrected_MomZ_Col_GeV                = 0;
-    fPion_Delta_Mom_Col_GeV                     = 0;
-    
+        
     fPion_Energy_Col                            = 0;
     fPion_MomZ_Col                              = 0;
     fPion_MomX_Col                              = 0;
@@ -423,27 +402,6 @@ void pim::Initilize() {
     fPion_MomX_Col_GeV                          = 0;
     fPion_MomY_Col_GeV                          = 0;
     fPion_MomZ_Col_GeV                          = 0;
-    
-    fPion_FSI_Energy_Col                        = 0;
-    fPion_FSI_MomZ_Col                          = 0;
-    fPion_FSI_MomX_Col                          = 0;
-    fPion_FSI_MomY_Col                          = 0;
-    fPion_FSI_Theta_Col                         = 0;
-    fPion_FSI_Phi_Col                           = 0;
-    fPion_FSI_Mom_Col                           = 0;
-    fPion_FSI_Energy_Col_GeV                    = 0;
-    fPion_FSI_Mom_Col_GeV                       = 0;
-    fPion_FSI_MomX_Col_GeV                      = 0;
-    fPion_FSI_MomY_Col_GeV                      = 0;
-    fPion_FSI_MomZ_Col_GeV                      = 0;
-  
-    fNeutron_MS_Energy_Col                      = 0;
-    fNeutron_MS_MomZ_Col                        = 0;
-    fNeutron_MS_MomX_Col                        = 0;
-    fNeutron_MS_MomY_Col                        = 0;
-    fNeutron_MS_Theta_Col                       = 0;
-    fNeutron_MS_Phi_Col                         = 0;
-    fNeutron_MS_Mom_Col                         = 0;
 
     fKaon_Energy_Col                            = 0;       
     fKaon_MomZ_Col                              = 0;       
@@ -470,30 +428,6 @@ void pim::Initilize() {
     fScathad_MomY_Col_GeV                       = 0;    
     fScathad_MomZ_Col_GeV                       = 0;
   
-    fNeutron_Targ_Thickness                     = 0;
-    fNeutron_Targ_Thickness_RadLen              = 0;
-    fNeutron_Targ_BT                            = 0;
-    fNeutron_Targ_Bremss_Loss                   = 0;
-    fNeutron_Targ_Ion_Loss                      = 0;
-    fNeutron_Air_Thickness                      = 0;
-    fNeutron_Air_Thickness_RadLen               = 0;
-    fNeutron_Air_BT                             = 0;
-    fNeutron_Air_Bremss_Loss                    = 0;
-    fNeutron_Air_Ion_Loss                       = 0;
-    fNeutron_Corrected_Theta_Col                = 0;
-    fNeutron_Corrected_Phi_Col                  = 0;
-    fNeutron_Corrected_Energy_Col               = 0;
-    fNeutron_Corrected_Mom_Col                  = 0;
-    fNeutron_Corrected_MomX_Col                 = 0;
-    fNeutron_Corrected_MomY_Col                 = 0;
-    fNeutron_Corrected_MomZ_Col                 = 0;
-    fNeutron_Delta_Mom_Col                      = 0;
-    fNeutron_Corrected_Energy_Col_GeV           = 0;
-    fNeutron_Corrected_Mom_Col_GeV              = 0;
-    fNeutron_Corrected_MomX_Col_GeV             = 0;
-    fNeutron_Corrected_MomY_Col_GeV             = 0;
-    fNeutron_Corrected_MomZ_Col_GeV             = 0;
-    fNeutron_Delta_Mom_Col_GeV                  = 0;
     fNeutron_Energy_Col                         = 0;
     fNeutron_MomZ_Col                           = 0;
     fNeutron_MomX_Col                           = 0;
@@ -506,16 +440,6 @@ void pim::Initilize() {
     fNeutron_MomX_Col_GeV                       = 0;
     fNeutron_MomY_Col_GeV                       = 0;
     fNeutron_MomZ_Col_GeV                       = 0;
-    fRecoilProton_Targ_Thickness                = 0;
-    fRecoilProton_Targ_Thickness_RadLen         = 0;
-    fRecoilProton_Targ_BT                       = 0;
-    fRecoilProton_Targ_Bremss_Loss              = 0;
-    fRecoilProton_Targ_Ion_Loss                 = 0;
-    fRecoilProton_Air_Thickness                 = 0;
-    fRecoilProton_Air_Thickness_RadLen          = 0;
-    fRecoilProton_Air_BT                        = 0;
-    fRecoilProton_Air_Bremss_Loss               = 0;
-    fRecoilProton_Air_Ion_Loss                  = 0;
     fRecoilProton_Theta_Col                     = 0;
     fRecoilProton_Phi_Col                       = 0;
     fRecoilProton_Energy_Col                    = 0;
@@ -523,25 +447,11 @@ void pim::Initilize() {
     fRecoilProton_MomX_Col                      = 0;
     fRecoilProton_MomY_Col                      = 0;
     fRecoilProton_MomZ_Col                      = 0;
-    fRecoilProton_Corrected_Energy_Col          = 0;
-    fRecoilProton_Corrected_Mom_Col             = 0;
-    fRecoilProton_Corrected_MomX_Col            = 0;
-    fRecoilProton_Corrected_MomY_Col            = 0;
-    fRecoilProton_Corrected_MomZ_Col            = 0;
-    fRecoilProton_Corrected_Theta_Col           = 0;
-    fRecoilProton_Corrected_Phi_Col             = 0;
-    fRecoilProton_Delta_Mom_Col                 = 0;
     fRecoilProton_Energy_Col_GeV                = 0;
     fRecoilProton_Mom_Col_GeV                   = 0;
     fRecoilProton_MomX_Col_GeV                  = 0;
     fRecoilProton_MomY_Col_GeV                  = 0;
     fRecoilProton_MomZ_Col_GeV                  = 0;
-    fRecoilProton_Corrected_Energy_Col_GeV      = 0;
-    fRecoilProton_Corrected_Mom_Col_GeV         = 0;
-    fRecoilProton_Corrected_MomX_Col_GeV        = 0;
-    fRecoilProton_Corrected_MomY_Col_GeV        = 0;
-    fRecoilProton_Corrected_MomZ_Col_GeV        = 0;
-    fRecoilProton_Delta_Mom_Col_GeV             = 0;
     fSSAsym                                     = 0;
     fSineAsym                                   = 0;
     fT                                          = 0;
