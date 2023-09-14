@@ -904,6 +904,7 @@ void pim::setrootfile( string rootFile ){
 ///       all object function calls are switched pointer function calls
 /// SJDK - 08/02/22 - Rootfile output doesn't seem to work, this is also an odd/inflexible way of defining them since it can't account for multiple process types - perhaps it should have second argument which is a reaction type flag?
 
+  // 14/09/23 - SJDK - Cut large chunks out of eic_pim.cc. More could be cut if these were made "generic" by switching to the ejectil/recoil etc conventions
   f = new TFile(rootFile.c_str(),"recreate"); 
 
   t1 = new TTree();
