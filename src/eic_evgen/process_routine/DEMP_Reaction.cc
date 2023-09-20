@@ -745,8 +745,7 @@ Double_t DEMP_Reaction::Get_Total_Cross_Section() {
 
 /*--------------------------------------------------*/
 /// Output generator detail
-// 06/09/23 SJDK - Formatting of these is all messed up annoyingly, would be nice to get the final numbers to align. They don't currently.
-// Cuts are now ordered as they are applied in the generator
+// 06/09/23 SJDK - Cuts are now ordered as they are applied in the generator
 void DEMP_Reaction::Detail_Output() {
 
   DEMPDetails << left << setw(70) << "Seed used for the Random Number Generator" << right << setw(20) << fSeed << endl;
@@ -925,11 +924,11 @@ void DEMP_Reaction::DEMPReact_Pythia6_Output() {
 	 << setw(6) << "5" 
 	 << setw(6) << "6" 
 
-	 << setw(14) << r_lprotong.X()
-	 << setw(14) << r_lprotong.Y()   
-	 << setw(14) << r_lprotong.Z()  
-	 << setw(14) << r_lprotong.E()
-	 << setw(14) << r_lprotong.M() // 15/05/23 - Love - Was fProton_Mass_GeV
+	 << setw(14) << r_lHBeamg.X()
+	 << setw(14) << r_lHBeamg.Y()   
+	 << setw(14) << r_lHBeamg.Z()  
+	 << setw(14) << r_lHBeamg.E()
+	 << setw(14) << r_lHBeamg.M() // 15/05/23 - Love - Was fProton_Mass_GeV
 	 << setw(6) << fVertex_X
 	 << setw(6) << fVertex_Y
 	 << setw(6) << fVertex_Z
@@ -1039,7 +1038,7 @@ void DEMP_Reaction::DEMPReact_HEPMC3_Output() {
   DEMPOut << "A" << " " << "0" << " " << "weight" << " " <<  fEventWeight << endl;
   // Beam particles, particle line - P - Particle ID - Parent Vertex ID - PDG id - px - py - pz - energy - particle mass - status (4, incoming beam particle)
   DEMPOut << "P" << " " << "1" << " " << "0" << " " << "11" << " " << r_lelectrong.X() << " " << r_lelectrong.Y() << " " << r_lelectrong.Z() << " " << r_lelectrong.E() << " " << r_lelectrong.M() << " " << "4" << endl;
-  DEMPOut << "P" << " " << "2" << " " << "0" << " " << "2212" << " " << r_lprotong.X() << " " << r_lprotong.Y() << " " << r_lprotong.Z() << " " << r_lprotong.E() << " " <<  r_lprotong.M()<< " " << "4" << endl;
+  DEMPOut << "P" << " " << "2" << " " << "0" << " " << "2212" << " " << r_lHBeamg.X() << " " << r_lHBeamg.Y() << " " << r_lHBeamg.Z() << " " << r_lHBeamg.E() << " " <<  r_lHBeamg.M()<< " " << "4" << endl;
   // Vertex line - V - 1 - 0 - [1,2]
   DEMPOut << "V" << " " << "-1" << " " << "0" << " " << "[1,2]" << endl;
   // Output particles, particle line - P - Particle ID - Parent Vertex ID - PDG id - px - py - pz - energy - particle mass - status (1, undecayed physical particle)
@@ -1114,7 +1113,7 @@ int DEMP_Reaction::Solve()
 
   VertBeamElec->SetPxPyPzE(r_lelectron.Px(), r_lelectron.Py(), r_lelectron.Pz(), r_lelectron.E());
   VertScatElec->SetPxPyPzE(r_lscatelec.Px(), r_lscatelec.Py(), r_lscatelec.Pz(), r_lscatelec.E());
-  Target->SetPxPyPzE(r_lproton.Px(), r_lproton.Py(), r_lproton.Pz(), r_lproton.E());
+  Target->SetPxPyPzE(r_lHBeam.Px(), r_lHBeam.Py(), r_lHBeam.Pz(), r_lHBeam.E());
   *Photon = *VertBeamElec - *VertScatElec;
   *Interaction = *Photon;
 
