@@ -59,7 +59,7 @@ echo "Running file $FileNum with $NumEvents events per file for $EBeamE GeV e- o
 set ConfigFilename = $DEMPGENPath'/Config_EIC_'$EBeamE'on'$HBeamE'_'$InteractionPoint'_'$Ejectile$RecoilHadron'_'$NumEvents'_'$FileNum'.json'
 
 # Copy the default config file to our constructed filename
-cp "$DEMPGENPxath/Config_EIC.json" $ConfigFilename
+cp "$DEMPGENPath/Config_EIC.json" $ConfigFilename
 
 # Use sed commands to change our config file based upon inputs
 sed -i 's/"file_name" \:.*/"file_name" \: "DEMPGen_'$EBeamE'on'$HBeamE'_'$InteractionPoint'_'$Particle$Hadron'_'$NumEvents'_'$FileNum'",/' $ConfigFilename
