@@ -79,7 +79,7 @@ void DEMP_Reaction::Init() {
   pd = dynamic_cast<pim*>(myPim);
 	
   rEjectile_charge = ExtractCharge(rEjectile);
-
+  
   const char* dir_name = "OutputFiles";
   struct stat sb;
 
@@ -419,14 +419,9 @@ void DEMP_Reaction::Processing_Event() {
 
   ///*--------------------------------------------------*/ 
   //-> 10/05/23 - Love added a slimmed down, simpler to read version of the CheckLaws fn
-  // 
   // To check the conservation of the energy and momentum, there two methods avalaible:
-  // Method 1: Give the four-vectors of the initial and final states partciles, 
-  //           tolerance factor will be defaulted 1e-6 MeV
-  //           CheckLaws(e_beam, h_beam, scatt_e, ejectile, recoil) <- input 4 vectors
-  // Method 2: Give the four-vectors of the initial and final states partciles, 
-  //           and the prefered tolerance factor.
-  //           CheckLaws(e_beam, h_beam, scatt_e, ejectile, recoil, tolerance) <- input 4 vectors and tolerance value in GeV
+  // Method 1: CheckLaws(e_beam, h_beam, scatt_e, ejectile, recoil) <- input 4 vectors, tolerance factor will default to 0.00001 GeV 
+  // Method 2: CheckLaws(e_beam, h_beam, scatt_e, ejectile, recoil, tolerance) <- input 4 vectors and tolerance value in GeV
   // Both functions return 1 if conservations laws are satisified
   
    if( pd->CheckLaws(r_lelectron, r_lHBeam, r_lscatelec, r_l_Ejectile, l_Recoil) !=1 ){
@@ -491,7 +486,6 @@ void DEMP_Reaction::Processing_Event() {
   fT = -1.*lt.Mag2();
   fT_GeV = -1.*ltg.Mag2();
 
-  // 31/01/23 SJDK - New limit on t, remove only events outside the parameterisation range
   // 06/09/23 SJDK - fT_Max set in eic.cc depending upon ejectile type
   if (fT_GeV > fT_Max ) {
     t_ev++;
@@ -583,10 +577,6 @@ void DEMP_Reaction::Processing_Event() {
   fJacobian_CM_Col = ( ( pow((r_l_Ejectile.Vect()).Mag(),2) * fW ) / // This one is actually used subsequently, so this must be Eqn 20
 		       ( f_Ejectile_Mom_CM * std::abs( ( fProton_Mass + r_lphoton.E() ) * (r_l_Ejectile.Vect()).Mag() -
 					       ( r_l_Ejectile.E() * (r_lphoton.Vect()).Mag() * cos( r_l_Ejectile.Theta() ) ) ) ) ); 
-
-
-  //	 cout <<  l_Ejectile_rf.Vect().Mag() << "  " << << << << << << << << endl;
-  //	 cout << fJacobian_CM_RF << "    " << fJacobian_CM_Col << endl;
 
   // -----------------------------------------------------------------------------------------------------------
   // CKY sigma L and T starts
@@ -911,7 +901,7 @@ void DEMP_Reaction::DEMPReact_Pythia6_Output() {
 	  << setw(14) << r_lelectrong.Y()   
 	  << setw(14) << r_lelectrong.Z()  
 	  << setw(14) << r_lelectrong.E()
-	  << setw(14) <<  r_lelectrong.M() // 15/05/23 - Love - Was fElectron_Mass_GeV
+	  << setw(14) << r_lelectrong.M() // 15/05/23 - Love - Was fElectron_Mass_GeV
 	  << setw(6) << fVertex_X
 	  << setw(6) << fVertex_Y
 	  << setw(6) << fVertex_Z
